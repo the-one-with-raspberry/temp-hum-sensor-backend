@@ -35,7 +35,7 @@ class SHT21:
     _TEMPERATURE_WAIT_TIME = 0.086  # (datasheet: typ=66, max=85)
     _HUMIDITY_WAIT_TIME = 0.030     # (datasheet: typ=22, max=29)
 
-    def __init__(self, device_number=0):
+    def __init__(self, device_number=1):
         """Opens the i2c device (assuming that the kernel modules have been
         loaded).  Note that this has only been tested on first revision
         raspberry pi where the device_number = 0, but it should work

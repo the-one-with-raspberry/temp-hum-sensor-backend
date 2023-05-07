@@ -7,7 +7,7 @@ def pushDB():
 
     with SHT21(1) as s:
         t = s.read_temperature()
-        tf = s.read_temperature() * (9/5) + 32
+        tf = s.read_temperature() * (9/5) + 32 # type: ignore
         h = s.read_humidity()
     
     q = "INSERT INTO th (temp, tempfaren, hum, timestamp) VALUES (%s, %s, %s, %s);"

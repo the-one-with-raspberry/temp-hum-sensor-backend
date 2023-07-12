@@ -29,10 +29,6 @@ def api_getInfo():
 
 @app.route("/api/v1/hist/getInfo", methods=["GET"])  # type: ignore
 def api_getHist():
-    response = jsonify({})
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "*")
-    response.headers.add("Access-Control-Allow-Methods", "*")
     histTemp = ""
     histHum = ""
     histFaren = ""
@@ -49,6 +45,8 @@ def api_getHist():
         sV('1 month')
     elif time == "1y":
         sV('1 year')
+    elif time == "5y":
+        sV('5 years')
     elif time == "all":
         sV('all')
     else:
@@ -61,6 +59,10 @@ def api_getHist():
     for i in range(len(histFaren)):
         histFaren[i] = round(int(histFaren[i]), 1) # type: ignore
     response = jsonify({'status': 200, 'content': {'humidity': {'value': histHum}, 'celsius': {'value': histTemp, 'unit': 'celsius'}, 'farenheit': {'value': histFaren, 'unit': 'farenheit'}}})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "*")
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    return response, 200
 def hist(col, time):
     connection = None
     try:
@@ -81,8 +83,7 @@ def hist(col, time):
             cursor.execute(f"SELECT {col} FROM th ORDER BY timestamp ASC")
         hData = cursor.fetchall()
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-        return error
+        raise error
     finally:
         if connection is not None:
             connection.close()

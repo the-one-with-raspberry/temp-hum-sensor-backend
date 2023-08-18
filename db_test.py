@@ -1,4 +1,4 @@
-import psycopg2
+import psycopg2, time, datetime
 def hist(col, time):
     connection = None
     try:
@@ -26,7 +26,5 @@ def hist(col, time):
             connection.close()
             print("Connection closed, returning data.")
             return hData  # type: ignore
-h = hist("temp", "1 hour")
-for i in h: # type: ignore
-    for j in i:
-        print(j)
+h = hist("temp, hum, timestamp", "1 hour")
+print(round(h[0][0], 1), round(h[0][1], 1), h[0][2])

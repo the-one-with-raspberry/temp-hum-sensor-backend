@@ -10,9 +10,9 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route("/docs", methods=["GET"])
-def apidocs():
-    return render_template("docs.html")
+#@app.route("/docs", methods=["GET"])
+#def apidocs():
+#    return render_template("docs.html")
 
 @app.route("/api/v1/current/getInfo", methods=["GET"])
 def api_getInfo():

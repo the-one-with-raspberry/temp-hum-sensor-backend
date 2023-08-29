@@ -111,7 +111,7 @@ def api_getHist():
 def hist(col, time):
     connection = None
     try:
-        print("Attempting connection to database...")
+        # print("Attempting connection to database...")
         connection = psycopg2.connect(
             host="localhost",
             database="pimyhouse",
@@ -120,8 +120,8 @@ def hist(col, time):
             port=5432,
         )
         cursor = connection.cursor()
-        if cursor:
-            print("Cursor created.")
+        # if cursor:
+            # print("Cursor created.")
         if time != "all":
             cursor.execute(
                 f"SELECT {col} FROM th WHERE (timestamp >= date_trunc('{time[2:]}', NOW() - interval '{time}')) ORDER BY timestamp ASC"
@@ -134,7 +134,7 @@ def hist(col, time):
     finally:
         if connection is not None:
             connection.close()
-            print("Connection closed, returning data.")
+            # print("Connection closed, returning data.")
             return hData
 
 
